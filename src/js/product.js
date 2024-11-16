@@ -12,7 +12,6 @@ function addProductToCart(product) {
 async function addToCartHandler(e) {
   const product = await dataSource.findProductById(e.target.dataset.id);
   addProductToCart(product);
-  console.log("Product added to cart:", product);
   
 }
 
