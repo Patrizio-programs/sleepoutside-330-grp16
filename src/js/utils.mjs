@@ -23,11 +23,9 @@ export function setClick(selector, callback) {
 }
 
 
-// utils.mjs
-export function getParams(param) {
-  const queryString = window.location.search;
-  const urlParams = new URLSearchParams(queryString);
-  const product = urlParams.get("product")
+  export function getParam(param) {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    return urlParams.get(param);
+  }
 
-  return product;
-}
