@@ -10,16 +10,16 @@ const productId = getParam("product");
 const product = new ProductDetails(productId, dataSource);
 product.init();
 
-function addProductToCart(product) {
+function addProductToCart(item) {
   let cart = getLocalStorage("so-cart") || [];
   cart = Array.isArray(cart) ? cart : [];
-  cart.push(product);
+  cart.push(item);
   setLocalStorage("so-cart", cart);
 }
 // add to cart button event handler
 async function addToCartHandler(e) {
-  const product = await dataSource.findProductById(e.target.dataset.id);
-  addProductToCart(product);
+  const item = await dataSource.findProductById(e.target.dataset.id);
+  addProductToCart(item);
   
 }
 
