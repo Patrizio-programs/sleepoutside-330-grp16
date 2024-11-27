@@ -232,3 +232,15 @@ footer {
 .cart-total {
   font-weight: bold;
 }
+
+.cart-card__quantity {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.quantity-input {
+  width: 60px;
+  padding: 0.25rem;
+  text-align: center;
+}
