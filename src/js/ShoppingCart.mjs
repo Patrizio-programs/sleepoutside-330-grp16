@@ -29,4 +29,26 @@ export default class ShoppingCart {
     const htmlItems = cartItems.map((item) => cartItemTemplate(item));
     document.querySelector(this.parentSelector).innerHTML = htmlItems.join("");
   }
+
+
+  updateCartCount() {
+  const cartItems = getLocalStorage(this.key) || [];
+  const items = Array.isArray(cartItems) ? cartItems : [cartItems];
+  const totalItems = items.reduce((sum, item) => sum + (item.Quantity || 1), 0);
+  
+  const cartCount = document.querySelector(".cart-count");
+  if (cartCount) {
+    if (totalItems > 0) {
+      cartCount.textContent = totalItems;
+      cartCount.style.display = "block";
+    } else {
+      cartCount.style.display = "none";
+    }
+  }
+} 
 }
+
+
+
+
+

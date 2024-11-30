@@ -63,4 +63,18 @@ export default class ProductList {
     this.error = message;
     this.listElement.innerHTML = `<div class="error">${message}</div>`;
   }
+
+
+  updateBreadcrumb() {
+    const categorySpan = document.getElementById("category-name");
+    const itemCountSpan = document.getElementById("item-count");
+    
+    // Capitalize first letter of category
+    const formattedCategory = this.category.charAt(0).toUpperCase() + this.category.slice(1);
+    
+    categorySpan.textContent = formattedCategory;
+    if (itemCountSpan) {
+      itemCountSpan.textContent = ` (${this.products.length} items)`;
+    }
+  }
 }

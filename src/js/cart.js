@@ -99,7 +99,29 @@ function addQuantityListeners() {
 }
 
 
+function updateCartCount() {
+  const cartItems = getLocalStorage("so-cart") || [];
+  const items = Array.isArray(cartItems) ? cartItems : [cartItems];
+  const totalItems = items.reduce((sum, item) => {
+    return sum + (item.Quantity || 1);
+  }, 0);
+  
+  const cartCount = document.querySelector(".cart-count");
+  if (cartCount) {
+    if (totalItems > 0) {
+      cartCount.textContent = totalItems;
+      cartCount.style.display = "block";
+    } else {
+      cartCount.style.display = "none";
+    }
+  }
+}
+
+
+
 
 
 export default renderCartContents;
 renderCartContents();
+updateCartCount();
+

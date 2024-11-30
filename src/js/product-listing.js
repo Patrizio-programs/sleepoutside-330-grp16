@@ -26,3 +26,5 @@ listing.update = function(newCategory) {
   this.category = newCategory;
   this.render();
 };
+
+
