@@ -15,26 +15,41 @@ function productCardTemplate(product) {
 
 export default class ProductList {
   constructor(category, dataSource, listElement) {
-    // We passed in this information to make our class as reusable as possible.
-    // Being able to define these things when we use the class will make it very flexible
     this.category = category;
     this.dataSource = dataSource;
     this.listElement = listElement;
-  }
-  async init() {
-    // our dataSource will return a Promise...so we can use await to resolve it.
-    const list = await this.dataSource.getData(this.category);
-    // render the list
-    this.renderList(list);
-  }
-  // render after doing the first stretch
-  renderList(list) {
-    renderListWithTemplate(productCardTemplate, this.listElement, list);
+    this.loading = false;
+    this.error = null;
   }
 
-  // render before doing the stretch
-  // renderList(list) {
-  //   const htmlStrings = list.map(productCardTemplate);
-  //   this.listElement.insertAdjacentHTML("afterbegin", htmlStrings.join(""));
-  // }
+  async init() {
+    this.loading = true;
+    try {
+      const list = await this.fetchData();
+      this.renderList(list);
+    } catch (err) {
+      console.error("Error fetching products:", err);
+      this.setError("Failed to fetch products");
+    } finally {
+      this.loading = false;
+    }
+  }
+
+  async fetchData() {
+    const data = await this.dataSource.getData(this.category);
+    return data || [];
+  }
+
+  renderList(list) {
+    if (list.length > 0) {
+      renderListWithTemplate(productCardTemplate, this.listElement, list);
+    } else {
+      this.listElement.innerHTML = "<div>No products found.</div>";
+    }
+  }
+
+  setError(message) {
+    this.error = message;
+    this.listElement.innerHTML = `<div class="error">${message}</div>`;
+  }
 }
