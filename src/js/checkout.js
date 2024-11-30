@@ -8,7 +8,7 @@ checkoutProcess.init();
 
 document
     .querySelector("#zip")
-    .addEventListener("blur", checkoutProcess.calculateTotal.bind(checkoutProcess));
+    .addEventListener("blur", checkoutProcess.calculateOrdertotal.bind(checkoutProcess));
 
 // Update the submit button event listener to use the correct ID from your HTML
 document.querySelector("#checkoutSubmit").addEventListener("click", (e) => {
