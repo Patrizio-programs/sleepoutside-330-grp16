@@ -1,16 +1,27 @@
 import { renderListWithTemplate } from "./utils.mjs";
 
+
+
+function setImagePath(imagePath) {
+  // Check if the path is already an absolute URL
+  if (imagePath.startsWith("http")) {
+      return imagePath;
+  }
+  // If it's a relative path, construct the full path
+  // You might need to adjust this base URL according to your needs
+  return `../images${imagePath.split("images")[1]}`;
+}
+
 function productCardTemplate(product) {
   return `<li class="product-card">
-  <a href="../product_pages/index.html?product=${product.Id}">
-  <img
-    src="${product.Image}"
-    alt="Image of ${product.Name}"
-  />
-  <h3 class="card__brand">${product.Brand.Name}</h3>
-  <h2 class="card__name">${product.Name}</h2>
-  <p class="product-card__price">$${product.FinalPrice}</p></a>
-</li>`;
+      <a href="../product_pages/index.html?product=${product.Id}">
+          <img src="${setImagePath(product.Images.PrimaryMedium)}" 
+               alt="Image of ${product.Name}">
+          <h3 class="card__brand">${product.Brand.Name}</h3>
+          <h2 class="card__name">${product.Name}</h2>
+          <p class="product-card__price">$${product.FinalPrice}</p>
+      </a>
+  </li>`;
 }
 
 export default class ProductList {

@@ -39,7 +39,31 @@ export default class CheckoutProcess {
   init() {
     this.list = getLocalStorage(this.key);
     this.calculateItemSummary();
+    this.prefillForm();
   }
+
+  prefillForm() {
+    const formData = {
+        fname: "John",
+        lname: "Doe",
+        street: "123 Main",
+        city: "Rexburg",
+        state: "ID",
+        zip: "83440",
+        cardNumber: "1234123412341234",
+        expiration: "8/21",
+        code: "123"
+    }
+    const form = document.forms["checkout"];
+    
+    // Set each form field value
+    for (const [key, value] of Object.entries(formData)) {
+        if (form.elements[key]) {
+            form.elements[key].value = value;
+        }
+    }
+}
+
   calculateItemSummary() {
     const summaryElement = document.querySelector(
       this.outputSelector + " #cartTotal"
