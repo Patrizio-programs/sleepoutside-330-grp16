@@ -73,11 +73,14 @@ export default class CheckoutProcess {
     const itemNumElement = document.querySelector(
       this.outputSelector + " #num-items"
     );
-    itemNumElement.innerText = this.list.length;
-    // calculate the total of all the items in the cart
-    const amounts = this.list.map((item) => item.FinalPrice);
-    this.itemTotal = amounts.reduce((sum, item) => sum + item);
-    summaryElement.innerText = "$" + this.itemTotal;
+    
+    if (summaryElement && itemNumElement) {
+      itemNumElement.innerText = this.list.length;
+      // calculate the total of all the items in the cart
+      const amounts = this.list.map((item) => item.FinalPrice);
+      this.itemTotal = amounts.reduce((sum, item) => sum + item);
+      summaryElement.innerText = "$" + this.itemTotal;
+    }
   }
 
   calculateOrdertotal() {
@@ -103,6 +106,7 @@ export default class CheckoutProcess {
   }
 
   async checkout() {
+
     const formElement = document.forms["checkout"];
 
     const json = formDataToJSON(formElement);
