@@ -39,12 +39,23 @@ export default class ProductDetails {
     let cartContents = getLocalStorage("so-cart");
     //check to see if there was anything there
     if (!cartContents) {
-      cartContents = [];
+        cartContents = [];
     }
-    // then add the current product to the list
-    cartContents.push(this.product);
+    
+    // Check if the item already exists in the cart
+    const existingItem = cartContents.find(item => item.Id === this.product.Id);
+    
+    if (existingItem) {
+        // If item exists, increment its quantity
+        existingItem.Quantity = (existingItem.Quantity || 1) + 1;
+    } else {
+        // If item is new, add it with quantity 1
+        this.product.Quantity = 1;
+        cartContents.push(this.product);
+    }
+    
     setLocalStorage("so-cart", cartContents);
-  }
+}
   renderProductDetails(selector) {
     const element = document.querySelector(selector);
     element.insertAdjacentHTML(
